@@ -13,10 +13,10 @@ SELECT user_id, user_role
 FROM users 
 WHERE username = 'cust1' AND password_hash = 'hashed_pwd';
 
--- 3. Browse upcoming exhibitions
+-- 3. Browse upcoming exhibitions (only future ones, not ongoing today)
 SELECT exhibition_id, exhibition_name, start_date, end_date 
 FROM exhibition 
-WHERE start_date >= CURDATE();
+WHERE start_date > CURDATE();
 
 -- 4. Check tickets availability for an exhibition date
 SELECT exhibition_date, tickets_available, tickets_sold 
@@ -150,4 +150,3 @@ SELECT u.first_name, u.last_name, ad.artwork_id, ad.price, ad.sold, ad.payment_d
 FROM users u
 JOIN artwork_details ad ON u.user_id = ad.artist_id
 WHERE u.user_role = 'artist' AND u.user_id = 6;
-                                                                                         
