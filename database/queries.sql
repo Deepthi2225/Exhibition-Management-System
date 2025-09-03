@@ -13,10 +13,10 @@ SELECT user_id, user_role
 FROM users 
 WHERE username = 'cust1' AND password_hash = 'hashed_pwd';
 
--- 3. Browse upcoming exhibitions (only future ones, not ongoing today)
+-- 3. Browse upcoming exhibitions
 SELECT exhibition_id, exhibition_name, start_date, end_date 
 FROM exhibition 
-WHERE start_date > CURDATE();
+WHERE start_date >= CURDATE();
 
 -- 4. Check tickets availability for an exhibition date
 SELECT exhibition_date, tickets_available, tickets_sold 
@@ -32,6 +32,16 @@ SELECT t.ticket_id, e.exhibition_name, t.exhibition_date, t.price, t.payment_met
 FROM ticket_sales t
 JOIN exhibition e ON t.exhibition_id = e.exhibition_id
 WHERE t.visitor_id = 5;
+
+-- 7. Nested query: List exhibitions that still have available tickets
+SELECT exhibition_id, exhibition_name 
+FROM exhibition e
+WHERE EXISTS (
+    SELECT 1 
+    FROM exhibition_days d 
+    WHERE d.exhibition_id = e.exhibition_id 
+      AND (d.tickets_available - d.tickets_sold) > 0
+);
 
 
 
@@ -57,6 +67,16 @@ VALUES (1, 6, 10000.00, 'not_sold', 'upi');
 SELECT artwork_id, price, sold 
 FROM artwork_details 
 WHERE artist_id = 6;
+
+-- 6. Nested query: Find artists who sold at least one artwork
+SELECT u.user_id, u.first_name, u.last_name
+FROM users u
+WHERE u.user_role = 'artist'
+  AND u.user_id IN (
+      SELECT DISTINCT artist_id 
+      FROM artwork_details 
+      WHERE sold = 'sold'
+  );
 
 
 
