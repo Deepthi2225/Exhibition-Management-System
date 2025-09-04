@@ -13,7 +13,6 @@ It provides a structured, database-driven workflow for three key roles:
 
 ---
 ```
-## 📂 Repository Structure
 Exhibition-Management-System/
 ├── README.md
 ├── report/
@@ -22,7 +21,11 @@ Exhibition-Management-System/
 ├── database/
 │ ├── ems_schema.sql # Database schema with tables & constraints
 │ ├── queries.sql # Requirement-based queries
-│ └── triggers.sql # Business rule triggers (if added)
+│ ├── triggers.sql # Business rule triggers
+│ ├── procedures.sql # Stored procedures (SPs)
+│ ├── functions.sql # User-defined functions (UDFs)
+│ ├── views.sql # Database views
+│ └── sample_data.sql # Sample data for testing
 └── docs/
 ├── ER_Diagram.png
 └── Schema_Diagram.png
@@ -36,11 +39,13 @@ Exhibition-Management-System/
 ---
 
 ## 🗄️ Database Files
-- **[ems_schema.sql](database/ems_schema.sql)** → Defines tables, keys, and constraints.  
-- **[queries.sql](database/queries.sql)** → Queries for customers, artists, admins, and frontend-driven use cases.  
-- **[triggers.sql](database/triggers.sql)** → (Optional) Triggers for business logic like employee auto-fill and ticket validation.  
-
----
+- ✅ **[ems_schema.sql](database/ems_schema.sql)** → Defines tables, keys, and constraints.  
+- ✅ **[queries.sql](database/queries.sql)** → Requirement-driven SQL queries for customers, artists, and admins.  
+- 🚧 **triggers.sql** → *(Upcoming)* Triggers for enforcing business rules (e.g., ticket validation, employee auto-fill).  
+- 🚧 **procedures.sql** → *(Upcoming)* Stored procedures for modular DB logic.  
+- 🚧 **functions.sql** → *(Upcoming)* User-defined functions (UDFs).  
+- 🚧 **views.sql** → *(Upcoming)* Database views for simplified data access.  
+- 🚧 **sample_data.sql** → *(Upcoming)* Sample test data for validation.  
 
 ## 📊 ER & Schema Diagrams
 ![ER Diagram](docs/ER_Diagram.png)  
@@ -62,23 +67,28 @@ Exhibition-Management-System/
    ```bash
    git clone https://github.com/<your-username>/Exhibition-Management-System.git
    cd Exhibition-Management-System
-Import schema:
-
-bash
-Copy code
+### Import schema:
+```bash
 mysql -u root -p < database/ems_schema.sql
-Run queries:
+```
 
-bash
-Copy code
+### Load sample data (optional):
+```bash
+mysql -u root -p < database/sample_data.sql
+```
+
+### Run queries:
+```bash 
 mysql -u root -p < database/queries.sql
-(Note: sample_data.sql will be added later for testing.)
+```
+(Note: ⚠️Other DB components (triggers, SPs, UDFs, views, and sample data) will be added soon..)
 
 ## 👩‍💻 Future Scope
-- Add UI for customers, artists, and admins.
-- Implement backend logic to connect UI ↔ DB.
-- Extend for multi-venue exhibition management.
-- Add advanced analytics & reports.
+✅ **Phase 1 (Completed):** Database schema & requirement queries.  
+- 🛠️ **Phase 1.1 (In Progress):** Triggers, SPs, UDFs, views, and sample data.  
+- 🔜 **Phase 2 (2–3 months):** Add UI (customer/artist/admin dashboards).  
+- 🔜 **Phase 3:** Extend for multi-venue exhibition management.  
+- 🔜 **Phase 4:** Add analytics & reporting dashboards.  
 
 ---
 
